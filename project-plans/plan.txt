@@ -19,7 +19,7 @@ Roles:
 O'quv markaz asosi (modellar): 
   user  
   guruh
-  yo'nalish
+  yo'nalish (field)
   xona
 
 User(student misolida) modeli:  (izoh: ? -> ixtiyoriy degani)
@@ -33,6 +33,35 @@ User(student misolida) modeli:  (izoh: ? -> ixtiyoriy degani)
   image_url?: string
   created_at: Datetime
   role: student
+
+Field (yo'nalish) model: 
+  id: number;
+  name: string;
+
+Classroom (xona) model :
+  id: number;
+  name: string;
+  size: number; (30 kishilik)
+
+Group(guruh) model: 
+  id: number;
+  name: string;
+  field_id: number;
+  classroom_id: number;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 O'quvchi (student) amallari (actions) :
   vazifa yuklaydi + comment -> POST
