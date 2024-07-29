@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "first_name": "John",
+    "last_name": "Smith",
+    "username": "john_okeng",
+    "password": "topolmisan_meni_passwordimni",
+    "birth_date": "23-09-1999",
+    "phone_number": "998939877887",
+    "image_url": null,
+    "created_at": "28-07-2024",
+    "role": "student"
+  },
+  {
+    "id": 2,
+    "first_name": "John",
+    "last_name": "Smith teacher",
+    "username": "john_okeng",
+    "password": "teacher_john",
+    "birth_date": "23-09-1999",
+    "phone_number": "998939877887",
+    "image_url": null,
+    "created_at": "28-07-2024",
+    "role": "teacher"
+  }
+]

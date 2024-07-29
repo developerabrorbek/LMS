@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/public/styles/login.css">
+</head>
+<body>
+  <main>
+    <section class="login">
+      <div class="login__inner">
+        <div class="login-image">
+          <img src="/public/images/login-image.jpg" alt="Login image">
+        </div>
+
+        <div class="login-body">
+          <h2>LMS LOGO</h2>
+          <form action="/auth/sign-in" method="post" class="login-form">
+            <label for="username">
+              <span>Username:</span>
+              <input type="text" name="username" id="username">
+            </label>
+            <label for="password">
+              <span>Password:</span>
+              <input type="password" name="password" id="password">
+            </label>
+            <button type="submit" class="login-form-btn">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

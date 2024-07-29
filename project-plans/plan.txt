@@ -2,18 +2,27 @@
 Learning management system -> O'quv markaz uchun
 
 Authentification:
-  login
-  parol
+  Login(sign-in):
+    username
+    password
+  Register(sign-up):
+    admin yaratadi
+
+
+Roles:
+  student
+  teacher
+  admin
+  super_admin
+
 
 O'quv markaz asosi (modellar): 
-  o'quvchi
+  user  
   guruh
   yo'nalish
-  o'qituvchi
-  admin
   xona
 
-O'quvchi modeli:  (izoh: ? -> ixtiyoriy degani)
+User(student misolida) modeli:  (izoh: ? -> ixtiyoriy degani)
   id: unique
   firstName: ismi
   lastName?: string
@@ -23,8 +32,9 @@ O'quvchi modeli:  (izoh: ? -> ixtiyoriy degani)
   birth_date: string
   image_url?: string
   created_at: Datetime
+  role: student
 
-O'quvchi amallari (actions) :
+O'quvchi (student) amallari (actions) :
   vazifa yuklaydi + comment -> POST
   videolani ko'ra oladi   -> GET
   o'quvchilar reytingini ko'ra oladi  -> GET
