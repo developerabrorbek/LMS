@@ -18,9 +18,26 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.use("/students", studentRoutes)
-app.use("/auth", authRoutes)
+app.get("/student", (req, res) => {
+  res.render("student");
+});
 
+app.get("/teacher", (req, res) => {
+  res.render("teacher");
+});
+
+app.get("/admin", (req, res) => {
+  res.render("admin");
+});
+
+app.get("/super-admin", (req, res) => {
+  res.render("super-admin", {
+    mainContentLink: `./components/super-admin-${req.query.tab}`,
+  });
+});
+
+app.use("/students", studentRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(APP_PORT, () => {
   console.log(`listening on port ${APP_PORT}`);

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Super Admin panel</title>
+    <link rel="stylesheet" href="/public/styles/core-styles.css" />
+    <link rel="stylesheet" href="/public/styles/super-admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <aside class="aside">
+      <h1>LOGO</h1>
+      <nav>
+        <ul class="nav-list">
+          <li class="dashboard">
+            <a href="/super-admin?tab=dashboard"
+              ><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a
+            >
+          </li>
+          <li class="teachers">
+            <a href="/super-admin?tab=teachers"
+              ><i class="fa-solid fa-chalkboard-user"></i> <span>Teachers</span>
+            </a>
+          </li>
+          <li class="students">
+            <a href="/super-admin?tab=students"
+              ><i class="fa-solid fa-graduation-cap"></i> <span>Students</span>
+            </a>
+          </li>
+          <li class="admins">
+            <a href="/super-admin?tab=admins"
+              ><i class="fa-solid fa-user-tie"></i> <span>Admins</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <a href="/" class="log-out"
+        ><span>Log out</span>
+        <i class="fa-solid fa-arrow-right-from-bracket"></i
+      ></a>
+    </aside>
+
+    <main>
+      <header class="header">
+        <h1>Dashboard</h1>
+        <div class="header-actions">
+          <div class="light-mode"><i class="fa-solid fa-moon"></i></div>
+          <img
+            width="40"
+            src="/public/images/default-profile-image.jpg"
+            alt="Profile image"
+          />
+        </div>
+      </header>
+      <div class="main-content">
+        <ul class="main-statistics">
+          <li>
+            <img
+              width="60"
+              src="/public/images/student-image.png"
+              alt="Students image"
+            />
+            <span>100 ta</span>
+          </li>
+          <li>
+            <img
+              width="60"
+              src="/public/images/teacher-svg-image.svg"
+              alt="Teachers image"
+            />
+            <span>100 ta</span>
+          </li>
+          <li>
+            <img
+              width="60"
+              src="/public/images/admin-image.png"
+              alt="Admin image"
+            />
+            <span>100 ta</span>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <script type="module" src="/public/js/super-admin.js"></script>
+  </body>
+</html>

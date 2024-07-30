@@ -22,5 +22,29 @@
     "image_url": null,
     "created_at": "28-07-2024",
     "role": "teacher"
+  },
+  {
+    "id": 3,
+    "first_name": "Tom",
+    "last_name": "Cruise",
+    "username": "tom",
+    "password": "admin",
+    "birth_date": "23-09-1999",
+    "phone_number": "998939875656",
+    "image_url": null,
+    "created_at": "28-07-2024",
+    "role": "admin"
+  },
+  {
+    "id": 4,
+    "first_name": "Tom",
+    "last_name": "Cruise",
+    "username": "tom",
+    "password": "super_admin",
+    "birth_date": "23-09-1999",
+    "phone_number": "998939875656",
+    "image_url": null,
+    "created_at": "28-07-2024",
+    "role": "super_admin"
   }
 ]

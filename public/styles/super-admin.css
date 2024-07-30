@@ -1,0 +1,143 @@
+body {
+  display: flex;
+}
+
+.aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 100vh;
+  background-color: #6EACDA;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  padding: 65px 0;
+}
+
+.aside nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 300px;
+}
+
+.log-out {
+  background-color: #d74b2f;
+  border-radius: 6px;
+  color: white;
+  padding: 12px;
+  text-decoration: none;
+  width: 70%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.log-out:hover {
+  opacity: 0.9;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  width: 70%;
+  gap: 4px;
+  justify-content: center;
+}
+
+.nav-list li {
+  background-color: #F5EDED;
+  border-radius: 6px;
+  color: black;
+  transition: all 0.2s ease;
+}
+
+.nav-list li:hover {
+  background-color: #B5CFB7;
+}
+
+.nav-list li a {
+  padding: 12px;
+}
+
+li.active {
+  background-color: #B5CFB7;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+main {
+  margin-left: 400px;
+  width: 100%;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 12px 35px;
+  justify-content: space-between;
+  background-color: #e2dad6;
+}
+
+.header h1 {
+  text-transform: capitalize;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.light-mode {
+  font-size: 24px;
+}
+
+.header-actions img {
+  border-radius: 50%;
+}
+
+.main-content {
+  height: 92%;
+}
+
+.main-statistics {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 26px;
+  grid-template-rows: minmax(200px, 300px);
+  background-color: #f5eded;
+  gap: 36px;
+  height: 100%;
+}
+
+.main-statistics li {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  justify-content: center;
+  padding: 26px;
+  box-shadow: 1px 1px 5px 5px #ccc;
+  transition: all 0.5s ease;
+  background-color: #e2dad6;
+}
+
+.main-statistics li:hover {
+  box-shadow: 1px 1px 5px 10px #ccc;
+}
+
+

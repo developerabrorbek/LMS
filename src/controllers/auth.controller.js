@@ -19,15 +19,18 @@ export const login = (req, res) => {
 
   switch (foundedUser.role) {
     case "student":
-      res.render("student", { student: foundedUser });
+      res.redirect(`/student?id=${foundedUser.id}`);
       break;
     case "teacher":
-      res.render("teacher", { teacher: foundedUser });
+      res.redirect(`/teacher?id=${foundedUser.id}`);
       break;
     case "admin":
-      res.render("admin", { admin: foundedUser });
+      res.redirect(`/admin?id=${foundedUser.id}`);
+      break;
+    case "super_admin":
+      res.redirect(`/super-admin`);
       break;
     default:
-      res.render("404", { message: "User role not found" });
+      res.redirect("404", { message: "User role not found" });
   }
 };
