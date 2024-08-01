@@ -1,21 +1,40 @@
 const navEls = document.querySelectorAll("li");
 
+let studentTableContent = `<table class="students-table">
+          <thead class="tbl-header">
+            <tr>
+              <th>№</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Birthday</th>
+              <th>Created at</th>
+              <th>Password</th>
+              <th>Username</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {%tbody%}
+          </tbody>
+        </table>`;
+
 const disableNavEl = () => {
   navEls.forEach((el) => el.classList.remove("active"));
 };
 
+const getAllStudents = async () => {
+  const res = await fetch("http://localhost:5000/students");
+  return await res.json();
+};
+
 const showContent = async (tabName = "dashboard") => {
+  const mainContentEl = document.querySelector(".main-content");
   const headerTitle = document.querySelector("header h1");
   headerTitle.textContent = tabName;
 
-  if(tabName == "students"){
-    await showStudentsContent()
-  }
-
-  showDashboardContent();
-};
-
-function showDashboardContent() {
   let content = `<ul class="main-statistics">
           <li>
             <img
@@ -43,14 +62,34 @@ function showDashboardContent() {
           </li>
         </ul>`;
 
-  document.querySelector(".main-content").innerHTML = content;
-}
+  mainContentEl.innerHTML = content;
 
-async function showStudentsContent() {
-  const res = await fetch("http://localhost:5000/students");
-  const data = await res.json();
-  console.log(data, "data");
-}
+  if (tabName == "students") {
+    const allStudents = await getAllStudents();
+    console.log(allStudents);
+    let studentContent = "";
+    allStudents?.data?.forEach((d) => {
+      studentContent += `<tr>
+              <td>${d.id}</td>
+              <td><img src="${d.image_url}" alt="Student image"></td>
+              <td>${d.first_name} ${d.last_name}</td>
+              <td>+${d.phone_number}</td>
+              <td>${d.birth_date}</td>
+              <td>${d.created_at}</td>
+              <td>${d.password}</td>
+              <td>${d.username}</td>
+              <td><i class="fa-regular fa-pen-to-square"></i></td>
+              <td><i class="fa-solid fa-trash"></i></td>
+            </tr>`;
+
+      const newContent = studentTableContent.replace(
+        "{%tbody%}",
+        studentContent
+      );
+      mainContentEl.innerHTML = newContent;
+    });
+  }
+};
 
 const activateNavEl = async () => {
   disableNavEl();

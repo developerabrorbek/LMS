@@ -21,7 +21,7 @@
     "phone_number": "998939877887",
     "image_url": null,
     "created_at": "28-07-2024",
-    "role": "teacher"
+    "role": "student"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "phone_number": "998939875656",
     "image_url": null,
     "created_at": "28-07-2024",
-    "role": "admin"
+    "role": "student"
   },
   {
     "id": 4,
@@ -46,5 +46,17 @@
     "image_url": null,
     "created_at": "28-07-2024",
     "role": "super_admin"
+  },
+  {
+    "id": 5,
+    "first_name": "Akmal",
+    "last_name": "Fayziyev",
+    "username": "akmal",
+    "password": "fayziyev",
+    "birth_date": "23-09-1999",
+    "phone_number": "998939877887",
+    "image_url": null,
+    "created_at": "28-07-2024",
+    "role": "student"
   }
 ]
