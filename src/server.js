@@ -5,6 +5,7 @@ import routes from "./routes/index.js";
 import pageRouter from "./routes/page.routes.js";
 import appConfig from "./config/app.config.js";
 import mongoDB from "./mongo/mongo.js";
+import ValidationMiddleware from "./middleware/validation.middleware.js";
 
 const app = express();
 
@@ -14,12 +15,13 @@ app.set("view engine", "ejs");
 // SET EJS FILES PATH
 app.set("views", path.join(process.cwd(), "src", "views"));
 
-// SERVE STATIC FILES IN PUBLIC DIRECTORY
-app.use("/public", express.static(path.join(process.cwd(), "public")));
+// SERVE STATIC FILES IN PUBLIC DIRECTORY -> MIDDLEWARE
+app.use("/public", express.static(path.join(process.cwd(), "public")));  // 1
 
-// BODY PARSING
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// BODY PARSING MIDDLEWARE
+app.use(bodyParser.json()); // 2
+app.use(bodyParser.urlencoded({ extended: true })); // 3
+
 
 //  CONNECTING TO MONGODB DATABASE
 mongoDB()
