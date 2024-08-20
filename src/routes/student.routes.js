@@ -1,9 +1,6 @@
 import { Router } from "express";
-import { getAllStudents, getSingleStudent } from "../controllers/student.controller.js";
 
-const studentRoutes = Router()
 
-studentRoutes.get("/", getAllStudents)
-.get("/:studentId", getSingleStudent)
+const studentRoutes = Router();
 
-export default studentRoutes
+export default studentRoutes;

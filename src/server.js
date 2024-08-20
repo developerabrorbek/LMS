@@ -1,44 +1,42 @@
-import express from "express";
-import { APP_PORT } from "./constants/app.constants.js";
-import bodyParser from "body-parser";
 import path from "path";
-import studentRoutes from "./routes/student.routes.js";
-import authRoutes from "./routes/auth.routes.js";
+import express from "express";
+import bodyParser from "body-parser";
+import routes from "./routes/index.js";
+import pageRouter from "./routes/page.routes.js";
+import appConfig from "./config/app.config.js";
+import mongoDB from "./mongo/mongo.js";
 
 const app = express();
 
+// SET VIEW ENGINE TO EJS
 app.set("view engine", "ejs");
+
+// SET EJS FILES PATH
 app.set("views", path.join(process.cwd(), "src", "views"));
+
+// SERVE STATIC FILES IN PUBLIC DIRECTORY
 app.use("/public", express.static(path.join(process.cwd(), "public")));
 
+// BODY PARSING
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
-app.get("/student", (req, res) => {
-  res.render("student");
-});
-
-app.get("/teacher", (req, res) => {
-  res.render("teacher");
-});
-
-app.get("/admin", (req, res) => {
-  res.render("admin");
-});
-
-app.get("/super-admin", (req, res) => {
-  res.render("super-admin", {
-    mainContentLink: `./components/super-admin-${req.query.tab}`,
+//  CONNECTING TO MONGODB DATABASE
+mongoDB()
+  .then(() => {
+    console.log("MongoDB ga ulandi");
+  })
+  .catch((err) => {
+    console.log(err.message);
   });
-});
 
-app.use("/students", studentRoutes);
-app.use("/auth", authRoutes);
+// PAGE ROUTES
+app.use("/", pageRouter);
 
-app.listen(APP_PORT, () => {
-  console.log(`listening on port ${APP_PORT}`);
+// API ROUTES
+app.use("/api/v1", routes);
+
+// SERVER LISTENING
+app.listen(appConfig.port, appConfig.host, () => {
+  console.log(`listening on port ${appConfig.port}`);
 });
