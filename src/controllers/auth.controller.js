@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
 
 class AuthController {
@@ -9,18 +10,36 @@ class AuthController {
 
   // LOGIN
   signin = async (req, res) => {
-    const foundedUser = await this.#_userModel.find(req.body)
+    const foundedUser = await this.#_userModel.findOne({
+      username: req.body.username,
+    });
+
+    if(!foundedUser) {
+      return res.status(404).send({
+        message: "User not found"
+      })
+    }
+
+    const result = await bcrypt.compare(
+      req.body.password,
+      foundedUser.password
+    );
+
+    if (!result) {
+      return res.status(409).send({
+        message: "Invalid password or username",
+      });
+    }
 
     res.send({
       message: "success",
-      data: foundedUser
+      data: foundedUser,
     });
   };
 
   // REGISTER
   signup = async (req, res) => {
-
-    res.send("ok")
+    res.send("ok");
   };
 }
 

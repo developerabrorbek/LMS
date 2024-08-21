@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
 import ApiFeature from "../utils/api-feature.utils.js";
 
@@ -40,11 +41,22 @@ class UserController {
   };
 
   createUser = async (req, res) => {
-    await this.#_userModel.create(req.body);
+    try {
+      const hashedPass = await bcrypt.hash(req.body.password, 12);
 
-    res.status(201).send({
-      message: "success",
-    });
+      await this.#_userModel.create({
+        ...req.body,
+        password: hashedPass,
+      });
+
+      res.status(201).send({
+        message: "success",
+      });
+    } catch (error) {
+      res.status(500).send({
+        message: error.message,
+      });
+    }
   };
 }
 
