@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
+import { signToken, verifyToken } from "../helper/jwt.helper.js";
 
 class AuthController {
   #_userModel;
@@ -30,6 +31,7 @@ class AuthController {
         message: "Invalid password or username",
       });
     }
+
 
     res.send({
       message: "success",
