@@ -9,38 +9,45 @@ class UserController {
     this.#_userModel = User;
   }
 
-  getAllUsers = async (req, res) => {
-    const query = { ...req.query };
+  getAllUsers = async (req, res, next) => {
+    try {
+      const query = { ...req.query };
 
-    // GET ALL FILTERED PRODUCTS COUNT
-    const allResultsCount = await new ApiFeature(this.#_userModel.find(), query)
-      .filter()
-      .sort("birthDate")
-      .limitFields()
-      .getQuery()
-      .countDocuments();
+      // GET ALL FILTERED PRODUCTS COUNT
+      const allResultsCount = await new ApiFeature(
+        this.#_userModel.find(),
+        query
+      )
+        .filter()
+        .sort("birthDate")
+        .limitFields()
+        .getQuery()
+        .countDocuments();
 
-    // EXECUTE QUERY
-    const allFilteredUsers = await new ApiFeature(
-      this.#_userModel.find(),
-      query
-    )
-      .filter()
-      .sort("birthDate")
-      .limitFields()
-      .paginate()
-      .getQuery();
+      // EXECUTE QUERY
+      const allFilteredUsers = await new ApiFeature(
+        this.#_userModel.find(),
+        query
+      )
+        .filter()
+        .sort("birthDate")
+        .limitFields()
+        .paginate()
+        .getQuery();
 
-    res.send({
-      message: "success",
-      page: req.query?.page || 0,
-      limit: req.query?.limit || 10,
-      results: allResultsCount,
-      data: allFilteredUsers,
-    });
+      res.send({
+        message: "success",
+        page: req.query?.page || 0,
+        limit: req.query?.limit || 10,
+        results: allResultsCount,
+        data: allFilteredUsers,
+      });
+    } catch (error) {
+      next(error);
+    }
   };
 
-  createUser = async (req, res) => {
+  createUser = async (req, res, next) => {
     try {
       const hashedPass = await bcrypt.hash(req.body.password, 12);
 
@@ -53,9 +60,7 @@ class UserController {
         message: "success",
       });
     } catch (error) {
-      res.status(500).send({
-        message: error.message,
-      });
+      next(error);
     }
   };
 }

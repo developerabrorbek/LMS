@@ -1,12 +1,17 @@
 import path from "path";
 import express from "express";
 import bodyParser from "body-parser";
+import morgan from "morgan";
 import routes from "./routes/index.js";
 import pageRouter from "./routes/page.routes.js";
 import appConfig from "./config/app.config.js";
 import mongoDB from "./mongo/mongo.js";
+import { ErrorHandlerMiddleware } from "./middleware/error-handler.middleware.js";
 
 const app = express();
+
+// MORGAN MIDDLEWARE
+app.use(morgan("tiny"));
 
 // SET VIEW ENGINE TO EJS
 app.set("view engine", "ejs");
@@ -42,6 +47,9 @@ app.all("*", (req, res) => {
     message: `Berilgan ${req.url} endpoint mavjud emas`,
   });
 });
+
+// ERROR HANDLER MIDDLEWARE
+app.use(ErrorHandlerMiddleware);
 
 // SERVER LISTENING
 app.listen(appConfig.port, appConfig.host, () => {

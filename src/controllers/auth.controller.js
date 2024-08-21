@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
-import { signToken, verifyToken } from "../helper/jwt.helper.js";
+import { NotFoundException } from "../exceptions/not-found.exception.js";
 
 class AuthController {
   #_userModel;
@@ -10,33 +10,34 @@ class AuthController {
   }
 
   // LOGIN
-  signin = async (req, res) => {
-    const foundedUser = await this.#_userModel.findOne({
-      username: req.body.username,
-    });
-
-    if(!foundedUser) {
-      return res.status(404).send({
-        message: "User not found"
-      })
-    }
-
-    const result = await bcrypt.compare(
-      req.body.password,
-      foundedUser.password
-    );
-
-    if (!result) {
-      return res.status(409).send({
-        message: "Invalid password or username",
+  signin = async (req, res, next) => {
+    try {
+      const foundedUser = await this.#_userModel.findOne({
+        username: req.body.username,
       });
+
+      if (!foundedUser) {
+        throw new NotFoundException("User not found");
+      }
+
+      const result = await bcrypt.compare(
+        req.body.password,
+        foundedUser.password
+      );
+
+      if (!result) {
+        return res.status(409).send({
+          message: "Invalid password or username",
+        });
+      }
+
+      res.status(200).send({
+        message: "success",
+        data: foundedUser,
+      });
+    } catch (error) {
+      next(error);
     }
-
-
-    res.send({
-      message: "success",
-      data: foundedUser,
-    });
   };
 
   // REGISTER
