@@ -1,4 +1,3 @@
-import Joi from "joi";
 import User from "../models/user.model.js";
 
 class AuthController {
