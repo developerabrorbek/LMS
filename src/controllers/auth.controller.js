@@ -31,10 +31,22 @@ class AuthController {
         });
       }
 
-      res.status(200).send({
-        message: "success",
-        data: foundedUser,
-      });
+      switch (foundedUser.role) {
+        case "student":
+          res.render("student");
+          break;
+        case "teacher":
+          res.render("teacher");
+          break;
+        case "admin":
+          res.render("admin");
+          break;
+        case "super-admin":
+          res.render("super-admin");
+          break;
+        default:
+          res.render("404", { message: "User page not found" });
+      }
     } catch (error) {
       next(error);
     }

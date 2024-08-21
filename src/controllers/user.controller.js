@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
 import ApiFeature from "../utils/api-feature.utils.js";
+import { isValidObjectId } from "mongoose";
+import { BadRequestException } from "../exceptions/bad-request.exception.js";
 
 class UserController {
   #_userModel;
@@ -61,6 +63,60 @@ class UserController {
       });
     } catch (error) {
       next(error);
+    }
+  };
+
+  updateUser = async (req, res, next) => {
+    try {
+      const { first_name, last_name, username, password, phone, birthDate } =
+        req.body;
+
+      let newPasswordHash = undefined;
+
+      if (password) {
+        newPasswordHash = await bcrypt.hash(req.body.password, 12);
+      }
+
+      const { userId } = req.params;
+
+      // check userid
+      this.#_checkObjectId(userId);
+
+      await this.#_userModel.findByIdAndUpdate(userId, {
+        first_name,
+        last_name,
+        password: newPasswordHash,
+        username,
+        phone,
+        birthDate,
+      });
+
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  deleteUser = async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+
+      // check userid
+      this.#_checkObjectId(userId);
+
+      await this.#_userModel.findByIdAndDelete(userId);
+
+      res.send({
+        message: "successfully deleted",
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  #_checkObjectId = (id) => {
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException(`Given ${id} is not a valid ObjectID`);
     }
   };
 }
