@@ -1,7 +1,7 @@
+import { isValidObjectId } from "mongoose";
 import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
 import ApiFeature from "../utils/api-feature.utils.js";
-import { isValidObjectId } from "mongoose";
 import { BadRequestException } from "../exceptions/bad-request.exception.js";
 
 class UserController {
@@ -35,7 +35,7 @@ class UserController {
         .sort("birthDate")
         .limitFields()
         .paginate()
-        .getQuery();
+        .getQuery().select("-password");
 
       res.send({
         message: "success",

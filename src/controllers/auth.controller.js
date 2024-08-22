@@ -33,16 +33,16 @@ class AuthController {
 
       switch (foundedUser.role) {
         case "student":
-          res.render("student");
+          res.redirect("/student");
           break;
         case "teacher":
-          res.render("teacher");
+          res.redirect("/teacher");
           break;
         case "admin":
-          res.render("admin");
+          res.redirect("/admin");
           break;
         case "super-admin":
-          res.render("super-admin");
+          res.redirect("/super-admin");
           break;
         default:
           res.render("404", { message: "User page not found" });

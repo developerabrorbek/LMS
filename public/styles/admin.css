@@ -1,0 +1,13 @@
+aside {
+  height: 100vh;
+}
+
+.list-group a {
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.list-group a:hover {
+  background-color: #0d6dfdb3;
+  color: white;
+}
