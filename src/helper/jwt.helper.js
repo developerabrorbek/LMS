@@ -5,5 +5,3 @@ export const signToken = () =>
   jwt.sign({ name: "Ali" }, jwtConfig.secretKey, {
     expiresIn: jwtConfig.expireTime,
   });
-
-export const verifyToken = (token) => jwt.verify(token, jwtConfig.secretKey);

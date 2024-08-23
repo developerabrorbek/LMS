@@ -7,6 +7,7 @@ import pageRouter from "./routes/page.routes.js";
 import appConfig from "./config/app.config.js";
 import mongoDB from "./mongo/mongo.js";
 import { ErrorHandlerMiddleware } from "./middleware/error-handler.middleware.js";
+import { VerifyJwtTokenMiddleware } from "./middleware/jwt-verify.middleware.js";
 
 const app = express();
 
