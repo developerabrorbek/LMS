@@ -5,7 +5,7 @@ import { VerifyJwtTokenMiddleware } from "../middleware/jwt-verify.middleware.js
 
 const routes = Router();
 
-routes.use("/users",VerifyJwtTokenMiddleware(), userRoutes);
+routes.use("/users",VerifyJwtTokenMiddleware, userRoutes);
 routes.use("/auth", authRoutes);
 
 export default routes;
