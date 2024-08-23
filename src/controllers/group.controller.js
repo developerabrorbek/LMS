@@ -6,6 +6,7 @@ import Class from "../models/class.model.js";
 import Field from "../models/field.model.js";
 import Group from "../models/group.model.js";
 import User from "../models/user.model.js";
+import { verifyToken } from "../helper/jwt.helper.js";
 
 class GroupController {
   #_model;
@@ -72,6 +73,8 @@ class GroupController {
   getAllGroups = async (req, res, next) => {
     try {
       const query = { ...req.query };
+
+      verifyToken(req.headers["authorization"]);
 
       // GET ALL FILTERED Group COUNT
       const allResultsCount = await new ApiFeature(this.#_model.find(), query)
