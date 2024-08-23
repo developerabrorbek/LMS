@@ -5,7 +5,8 @@ import { loginSchema } from "../dtos/login.dto.js";
 
 const authRoutes = Router();
 
-authRoutes.post("/login", ValidationMiddleware(loginSchema),  authController.signin)
-.post("/register", ValidationMiddleware(), authController.signup);
+authRoutes
+    .post("/login", ValidationMiddleware(loginSchema),  authController.signin)
+    .post("/register", ValidationMiddleware(), authController.signup);
 
 export default authRoutes;
