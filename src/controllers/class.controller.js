@@ -48,6 +48,7 @@ class ClassController {
         .limitFields()
         .paginate()
         .getQuery()
+        .populate("groups")
         .select("-__v");
 
       res.send({

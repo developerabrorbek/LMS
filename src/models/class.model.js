@@ -13,6 +13,12 @@ const classSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    groups: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Group",
+      },
+    ],
   },
   {
     collection: "classes",

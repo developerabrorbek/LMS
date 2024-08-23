@@ -35,7 +35,9 @@ class UserController {
         .sort("birthDate")
         .limitFields()
         .paginate()
-        .getQuery().select("-password");
+        .getQuery()
+        .populate("groups")
+        .select("-password");
 
       res.send({
         message: "success",

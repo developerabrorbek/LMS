@@ -44,6 +44,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    groups: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Group",
+      },
+    ],
   },
   {
     collection: "users",

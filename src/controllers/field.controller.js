@@ -62,6 +62,7 @@ class FieldController {
         .getQuery()
         .populate("parentField")
         .populate("childFields")
+        .populate("groups")
         .select("-__v");
 
       res.send({

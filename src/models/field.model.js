@@ -1,4 +1,4 @@
-import mongoose, { SchemaTypes } from "mongoose";
+import mongoose, { mongo, SchemaTypes } from "mongoose";
 
 const fieldSchema = new mongoose.Schema(
   {
@@ -18,6 +18,12 @@ const fieldSchema = new mongoose.Schema(
       type: SchemaTypes.ObjectId,
       ref: "Field",
     },
+    groups: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Group",
+      },
+    ],
   },
   {
     collection: "fields",
