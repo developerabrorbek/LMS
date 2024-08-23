@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import jwtConfig from "../config/jwt.config.js";
 
-export const signToken = () =>
-  jwt.sign({ name: "Ali" }, jwtConfig.secretKey, {
+export const signToken = (tokenData) =>
+  jwt.sign(tokenData, jwtConfig.secretKey, {
     expiresIn: jwtConfig.expireTime,
   });
 
