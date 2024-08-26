@@ -5,12 +5,10 @@ import { verifyToken } from "../helper/jwt.helper.js";
 export const CheckAuthGuard = (isProtected) => {
   return (req, _, next) => {
     if (!isProtected) {
-      next();
+      return next();
     }
 
     const token = req.headers["authorization"];
-
-    console.log(token)
 
     if (!(token && token.startsWith("Bearer") && token.split(" ")[1])) {
       throw new BadRequestException(`Given token: ${token} is invalid`);

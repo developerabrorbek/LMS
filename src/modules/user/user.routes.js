@@ -10,15 +10,29 @@ const userRoutes = Router();
 userRoutes
   .post(
     "/add",
+    CheckAuthGuard(true),
+    CheckRolesGuard("super-admin", "admin"),
     ValidationMiddleware(createUserSchema),
     userController.createUser
   )
-  .get("/", CheckAuthGuard(true) ,userController.getAllUsers)
+  .get(
+    "/",
+    CheckAuthGuard(false),
+    CheckRolesGuard(),
+    userController.getAllUsers
+  )
   .patch(
     "/update/:userId",
+    CheckAuthGuard(true),
+    CheckRolesGuard(),
     ValidationMiddleware(updateUserSchema),
     userController.updateUser
   )
-  .delete("/delete/:userId", userController.deleteUser);
+  .delete(
+    "/delete/:userId",
+    CheckAuthGuard(true),
+    CheckRolesGuard("super-admin", "admin"),
+    userController.deleteUser
+  );
 
 export default userRoutes;
