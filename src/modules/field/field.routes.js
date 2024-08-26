@@ -1,5 +1,7 @@
 import { Router } from "express";
 import fieldController from "./field.controller.js";
+import { CheckRolesGuard } from "../../guards/check-role.guard.js";
+import { CheckAuthGuard } from "../../guards/check-auth.guard.js";
 
 const fieldRouter = Router();
 

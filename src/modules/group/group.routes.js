@@ -1,5 +1,7 @@
 import { Router } from "express";
 import groupController from "./group.controller.js";
+import { CheckAuthGuard } from "../../guards/check-auth.guard.js";
+import { CheckRolesGuard } from "../../guards/check-role.guard.js";
 
 const groupRouter = Router();
 
