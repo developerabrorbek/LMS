@@ -1,5 +1,5 @@
 import { Router } from "express";
-import fieldController from "../controllers/field.controller.js";
+import fieldController from "./field.controller.js";
 
 const fieldRouter = Router();
 

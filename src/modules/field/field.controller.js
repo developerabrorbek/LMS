@@ -1,7 +1,7 @@
 import { isValidObjectId } from "mongoose";
-import Field from "../models/field.model.js";
-import ApiFeature from "../utils/api-feature.utils.js";
-import { NotFoundException } from "../exceptions/not-found.exception.js";
+import Field from "./field.model.js";
+import ApiFeature from "../../utils/api-feature.utils.js";
+import { NotFoundException } from "../../exceptions/not-found.exception.js";
 
 class FieldController {
   #_model;

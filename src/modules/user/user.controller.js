@@ -1,8 +1,8 @@
 import { isValidObjectId } from "mongoose";
 import bcrypt from "bcrypt";
-import User from "../models/user.model.js";
-import ApiFeature from "../utils/api-feature.utils.js";
-import { BadRequestException } from "../exceptions/bad-request.exception.js";
+import User from "./user.model.js";
+import ApiFeature from "../../utils/api-feature.utils.js";
+import { BadRequestException } from "../../exceptions/bad-request.exception.js";
 
 class UserController {
   #_userModel;

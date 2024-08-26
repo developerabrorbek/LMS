@@ -1,12 +1,12 @@
 import { isValidObjectId } from "mongoose";
-import ApiFeature from "../utils/api-feature.utils.js";
-import { NotFoundException } from "../exceptions/not-found.exception.js";
-import { BadRequestException } from "../exceptions/bad-request.exception.js";
-import Class from "../models/class.model.js";
-import Field from "../models/field.model.js";
-import Group from "../models/group.model.js";
-import User from "../models/user.model.js";
-import { verifyToken } from "../helper/jwt.helper.js";
+import ApiFeature from "../../utils/api-feature.utils.js";
+import { NotFoundException } from "../../exceptions/not-found.exception.js";
+import { BadRequestException } from "../../exceptions/bad-request.exception.js";
+import Class from "../class/class.model.js";
+import Field from "../field/field.model.js";
+import Group from "../group/group.model.js";
+import User from "../user/user.model.js";
+import { verifyToken } from "../../helper/jwt.helper.js";
 
 class GroupController {
   #_model;

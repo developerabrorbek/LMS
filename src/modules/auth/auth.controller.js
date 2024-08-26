@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
-import User from "../models/user.model.js";
-import { NotFoundException } from "../exceptions/not-found.exception.js";
-import { signToken } from "../helper/jwt.helper.js";
+import User from "../user/user.model.js";
+import { NotFoundException } from "../../exceptions/not-found.exception.js";
+import { signToken } from "../../helper/jwt.helper.js";
 
 class AuthController {
   #_userModel;

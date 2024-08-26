@@ -1,6 +1,6 @@
 import { isValidObjectId } from "mongoose";
-import ApiFeature from "../utils/api-feature.utils.js";
-import Class from "../models/class.model.js";
+import ApiFeature from "../../utils/api-feature.utils.js";
+import Class from "./class.model.js";
 
 class ClassController {
   #_model;
