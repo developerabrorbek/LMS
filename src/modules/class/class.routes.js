@@ -2,6 +2,10 @@ import { Router } from "express";
 import classController from "./class.controller.js";
 import { CheckAuthGuard } from "../../guards/check-auth.guard.js";
 import { CheckRolesGuard } from "../../guards/check-role.guard.js";
+import { upload } from "../../utils/multer.utils.js";
+import ValidationMiddleware from "../../middleware/validation.middleware.js";
+import { createClassDto } from "./dtos/class-create.dto.js";
+
 
 const classRouter = Router();
 
@@ -16,6 +20,8 @@ classRouter
     "/add",
     CheckAuthGuard(true),
     CheckRolesGuard("admin", "super-admin"),
+    upload.single("image"),
+    ValidationMiddleware(createClassDto),
     classController.createClass
   )
   .patch(
