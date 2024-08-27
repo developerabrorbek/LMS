@@ -50,27 +50,29 @@ class AuthController {
         role: foundedUser.role,
       });
 
-      res.send({
-        message: "success",
-        token: accessToken,
-      });
+      res.cookie("token", accessToken, { maxAge: 1000 * 60 * 6, signed: true });
 
-      // switch (foundedUser.role) {
-      //   case "student":
-      //     res.redirect("/student");
-      //     break;
-      //   case "teacher":
-      //     res.redirect("/teacher");
-      //     break;
-      //   case "admin":
-      //     res.redirect("/admin");
-      //     break;
-      //   case "super-admin":
-      //     res.redirect("/super-admin");
-      //     break;
-      //   default:
-      //     res.render("404", { message: "User page not found" });
-      // }
+      // res.send({
+      //   message: "success",
+      //   // token: accessToken,
+      // });
+
+      switch (foundedUser.role) {
+        case "student":
+          res.redirect("/student");
+          break;
+        case "teacher":
+          res.redirect("/teacher");
+          break;
+        case "admin":
+          res.redirect("/admin");
+          break;
+        case "super-admin":
+          res.redirect("/super-admin");
+          break;
+        default:
+          res.render("404", { message: "User page not found" });
+      }
     } catch (error) {
       next(error);
     }

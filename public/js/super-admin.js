@@ -26,7 +26,7 @@ const disableNavEl = () => {
 };
 
 const getAllStudents = async () => {
-  const res = await fetch("http://localhost:5000/students");
+  const res = await fetch("http://localhost:5000/api/v1/users");
   return await res.json();
 };
 

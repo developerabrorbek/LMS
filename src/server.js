@@ -7,11 +7,19 @@ import pageRouter from "./routes/page.routes.js";
 import appConfig from "./config/app.config.js";
 import mongoDB from "./mongo/mongo.js";
 import { ErrorHandlerMiddleware } from "./middleware/error-handler.middleware.js";
+import cookieParser from "cookie-parser";
+import methodOverride from "method-override";
 
 const app = express();
 
 // MORGAN MIDDLEWARE
 app.use(morgan("tiny"));
+
+// USE COOKIE PARSER MIDDLEWARE
+app.use(cookieParser("secret-key"));
+
+// SET UP METHOD OVERRIDE MIDDLEWARE FOR POST REQUESTS WITH QUERY ?_method=
+app.use(methodOverride("_method"));
 
 // SET VIEW ENGINE TO EJS
 app.set("view engine", "ejs");

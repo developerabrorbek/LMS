@@ -16,6 +16,11 @@ class UserController {
     try {
       const query = { ...req.query };
 
+      console.log(req.cookies, "oddiy cookies")
+
+      console.log(req.signedCookies, "secret cookies")
+
+
       // GET ALL FILTERED PRODUCTS COUNT
       const allResultsCount = await new ApiFeature(
         this.#_userModel.find(),
