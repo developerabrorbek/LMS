@@ -9,4 +9,5 @@ export const createUserSchema = Joi.object({
   role: Joi.string().valid("student", "teacher", "admin", "super-admin"),
   birthDate: Joi.date().required(),
   image_url: Joi.string(),
+  email: Joi.string().email().required(),
 });

@@ -6,6 +6,14 @@ pageRouter.get("/", (req, res) => {
   res.render("index");
 });
 
+pageRouter.get("/forgot-password", (req, res) => {
+  res.render("forgot-password", { text: "" });
+});
+
+pageRouter.get("/reset-password/:token", (req, res) => {
+  res.render("reset-password", { token: req.params.token });
+});
+
 pageRouter.get("/student", (req, res) => {
   res.render("student");
 });

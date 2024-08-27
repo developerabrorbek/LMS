@@ -1,8 +1,14 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import User from "../user/user.model.js";
 import { NotFoundException } from "../../exceptions/not-found.exception.js";
 import { signToken } from "../../helper/jwt.helper.js";
 import { sendMail } from "../../utils/send-email.utils.js";
+import passwordResetConfig from "../../config/password-reset.config.js";
+import crypto from "crypto";
+import bcryptConfig from "../../config/bcrypt.config.js";
+import appConfig from "../../config/app.config.js";
+import { ConflictException } from "../../exceptions/conflic.exception.js";
 
 class AuthController {
   #_userModel;
@@ -65,6 +71,79 @@ class AuthController {
       //   default:
       //     res.render("404", { message: "User page not found" });
       // }
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // Reset Password
+  resetPassword = async (req, res, next) => {
+    try {
+      const { password } = req.body;
+
+      const token = req.params.token;
+
+      const foundedUser = await this.#_userModel.findOne({
+        passwordResetToken: token,
+      });
+
+      if (!foundedUser) {
+        throw new NotFoundException("User not found");
+      }
+
+      if (foundedUser.passwordResetTokenExpireTime - Date.now() < 0) {
+        throw new ConflictException("Password reset time already expired");
+      }
+
+      const hashedPass = await bcrypt.hash(password, bcryptConfig.rounds);
+
+      await this.#_userModel.findByIdAndUpdate(foundedUser.id, {
+        password: hashedPass,
+        passwordResetToken: undefined,
+        passwordResetTokenExpireTime: undefined,
+      });
+
+      res.redirect("/");
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // Forgot Password
+  forgotPassword = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+
+      const foundedUser = await this.#_userModel.findOne({ email });
+
+      if (!foundedUser) {
+        throw new NotFoundException("User not found");
+      }
+
+      const randomText = crypto.randomBytes(32).toString("hex");
+
+      const passwordResetToken = await bcrypt.hash(
+        randomText,
+        bcryptConfig.rounds
+      );
+
+      const passwordResetUrl = `${req.protocol}://${req.host}:${appConfig.port}/reset-password/${passwordResetToken}`;
+
+      await sendMail({
+        html: `<a href="${passwordResetUrl}">Click here</a>`,
+        to: foundedUser.email,
+        subject: "Click link below to reset password",
+      });
+
+      await this.#_userModel.findByIdAndUpdate(foundedUser.id, {
+        passwordResetToken,
+        passwordResetTokenExpireTime:
+          Date.now() + Number(passwordResetConfig.expireTime) * 1000,
+      });
+
+      res.render("forgot-password", {
+        text: "Send reset password link to your email! Check out❗",
+      });
     } catch (error) {
       next(error);
     }

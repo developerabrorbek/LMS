@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema(
       minLength: [12, "Nomer 12 uzunlikda bo'lishi kerak"],
       maxLength: 12,
     },
+    email: {
+      type: String,
+      unique: [true, "Email yagona bo'lishi kerak"],
+    },
     role: {
       type: String,
       enum: {
@@ -43,6 +47,12 @@ const userSchema = new mongoose.Schema(
     image_url: {
       type: String,
       required: false,
+    },
+    passwordResetToken: {
+      type: String,
+    },
+    passwordResetTokenExpireTime: {
+      type: Date,
     },
     groups: [
       {

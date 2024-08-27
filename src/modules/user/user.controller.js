@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import User from "./user.model.js";
 import ApiFeature from "../../utils/api-feature.utils.js";
 import { BadRequestException } from "../../exceptions/bad-request.exception.js";
+import bcryptConfig from "../../config/bcrypt.config.js";
 
 class UserController {
   #_userModel;
@@ -53,7 +54,7 @@ class UserController {
 
   createUser = async (req, res, next) => {
     try {
-      const hashedPass = await bcrypt.hash(req.body.password, 12);
+      const hashedPass = await bcrypt.hash(req.body.password, bcryptConfig.rounds);
 
       await this.#_userModel.create({
         ...req.body,
