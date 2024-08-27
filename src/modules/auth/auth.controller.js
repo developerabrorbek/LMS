@@ -99,8 +99,8 @@ class AuthController {
 
       await this.#_userModel.findByIdAndUpdate(foundedUser.id, {
         password: hashedPass,
-        passwordResetToken: undefined,
-        passwordResetTokenExpireTime: undefined,
+        passwordResetToken: null,
+        passwordResetTokenExpireTime: null,
       });
 
       res.redirect("/");
@@ -122,12 +122,7 @@ class AuthController {
 
       const randomText = crypto.randomBytes(32).toString("hex");
 
-      const passwordResetToken = await bcrypt.hash(
-        randomText,
-        bcryptConfig.rounds
-      );
-
-      const passwordResetUrl = `${req.protocol}://${req.host}:${appConfig.port}/reset-password/${passwordResetToken}`;
+      const passwordResetUrl = `${req.protocol}://${req.host}:${appConfig.port}/reset-password/${randomText}`;
 
       await sendMail({
         html: `<a href="${passwordResetUrl}">Click here</a>`,
@@ -136,7 +131,7 @@ class AuthController {
       });
 
       await this.#_userModel.findByIdAndUpdate(foundedUser.id, {
-        passwordResetToken,
+        passwordResetToken: randomText,
         passwordResetTokenExpireTime:
           Date.now() + Number(passwordResetConfig.expireTime) * 1000,
       });
