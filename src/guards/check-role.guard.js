@@ -2,7 +2,6 @@ import { ConflictException } from "../exceptions/conflic.exception.js";
 
 export const CheckRolesGuard = (...roles) => {
   return (req, _, next) => {
-    console.log(roles)
     if (!roles.length) {
       return next();
     }
