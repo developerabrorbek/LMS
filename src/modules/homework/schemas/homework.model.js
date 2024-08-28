@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const lessonHomeworkSchema = new mongoose.Schema(
+const homeworkSchema = new mongoose.Schema(
   {
     file_url: {
       type: String,
@@ -17,11 +17,17 @@ const lessonHomeworkSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Lesson",
     },
+    homeworkReplies: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "HomeworReplies",
+      },
+    ],
   },
   {
     timestamps: true,
-    collection: "lesson_homework",
+    collection: "homeworks",
   }
 );
 
-export const LessonHomework = mongoose.model("LessonHomework", lessonHomeworkSchema);
+export const Homework = mongoose.model("Homework", homeworkSchema);
