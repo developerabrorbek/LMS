@@ -49,6 +49,35 @@ Group(guruh) model:
   field_id: number;
   classroom_id: number;
 
+Lesson (dars) model:
+  id: string;
+  name: string;
+  created_at: Date;
+  group_id: string;
+
+Lesson_video (dars videosi) model:
+  id: string;
+  name: string;
+  video_url: string;
+  lesson_id: string;
+
+Lesson_homework (dars vazifasi): 
+  id: string;
+  description: string;
+  file_url?: string;
+  created_at: Date;
+  expire_at: Date;
+  lesson_id: string;
+
+Homework (dars javobi) model:
+  id: string;
+  description: string;
+  file_url?: string;
+  created_at: Date;
+  status: enum ["process", "success", "failure"];
+  homework_score: int [0->100];
+  lesson_homework_id: string;
+  student_id: string;
 
 
 
