@@ -54,7 +54,7 @@ class AuthController {
 
       res.send({
         message: "success",
-        // token: accessToken,
+        token: accessToken,
       });
 
       // switch (foundedUser.role) {
