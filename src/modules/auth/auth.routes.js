@@ -9,7 +9,6 @@ const authRoutes = Router();
 
 authRoutes
   .post("/login", ValidationMiddleware(loginSchema), authController.signin)
-  .post("/register", ValidationMiddleware(), authController.signup)
   .post(
     "/forgot-password",
     ValidationMiddleware(forgotPasswordDto),
