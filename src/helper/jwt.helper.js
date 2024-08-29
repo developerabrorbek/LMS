@@ -10,15 +10,15 @@ export const signToken = (tokenData) =>
 
 export const verifyToken = (token) =>
   jwt.verify(token, jwtConfig.secretKey, (err, _) => {
-    if (err && err instanceof jwt.JsonWebTokenError) {
-      throw new BadRequestException("Invalid JWT token");
-    }
-
     if (err && err instanceof jwt.NotBeforeError) {
       throw new BadRequestException("Not before JWT error");
     }
 
     if (err && err instanceof jwt.TokenExpiredError) {
       throw new TokenExpiredException("Token already expired");
+    }
+    
+    if (err && err instanceof jwt.JsonWebTokenError) {
+      throw new BadRequestException("Invalid JWT token");
     }
   });
