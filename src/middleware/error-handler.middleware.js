@@ -1,3 +1,5 @@
+import logger from "../utils/logger.utils.js";
+
 const sendDublicateFieldException = (err) => {
   const error = { ...err };
 
@@ -18,9 +20,17 @@ const sendDublicateFieldException = (err) => {
 };
 
 export const ErrorHandlerMiddleware = (err, _, res, __) => {
+  // Catch dublicate field errors
   err = sendDublicateFieldException(err);
 
   if (err.isException) {
+    // write error to error-logs
+    logger.error(
+      `Exception (${err.name}): message: ${err.message}, status: ${
+        err.statusCode
+      }; Time: ${new Date()}`
+    );
+
     return res.status(err.statusCode).send({
       name: err.name,
       message: err.message,

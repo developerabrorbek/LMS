@@ -28,12 +28,6 @@ class AuthController {
         throw new NotFoundException("User not found");
       }
 
-      await sendMail({
-        to: "sardor.tolibov04@gmail.com",
-        subject: "DEMO EMAIL FROM LMS",
-        html: "<h1 style='color:red;'>Assalomu alaykum</h1>",
-      });
-
       const result = await bcrypt.compare(
         req.body.password,
         foundedUser.password
