@@ -15,6 +15,6 @@ routes.use("/fields", fieldRouter);
 routes.use("/classes", classRouter);
 routes.use("/groups", groupRouter);
 routes.use("/lessons", lessonRouter);
-routes.use("/lesson-video", lessonVideoRouter);
+routes.use("/lesson-videos", lessonVideoRouter);
 
 export default routes;

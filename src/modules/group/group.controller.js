@@ -74,8 +74,6 @@ class GroupController {
     try {
       const query = { ...req.query };
 
-      verifyToken(req.headers["authorization"]);
-
       // GET ALL FILTERED Group COUNT
       const allResultsCount = await new ApiFeature(this.#_model.find(), query)
         .filter()

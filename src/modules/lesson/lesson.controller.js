@@ -60,6 +60,7 @@ class LessonController {
         .limitFields()
         .paginate()
         .getQuery()
+        .populate([{ path: "videos" }, { path: "group" }])
         .select("-__v");
 
       res.send({

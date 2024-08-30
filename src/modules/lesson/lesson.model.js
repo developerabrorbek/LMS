@@ -10,6 +10,12 @@ const lessonSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Group",
     },
+    videos: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "LessonVideo",
+      },
+    ],
   },
   {
     timestamps: true,

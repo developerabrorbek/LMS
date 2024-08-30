@@ -30,10 +30,17 @@ class LessonVideoController {
         throw BadRequestException("Lesson video is required");
       }
 
-      await this.#_model.create({
+      const newLessonVideo = await this.#_model.create({
         name,
         lesson: lessonId,
         video_url,
+      });
+
+      // add video to lesson
+      await this.#_lessonModel.findByIdAndUpdate(lessonId, {
+        $push: {
+          videos: newLessonVideo.id,
+        },
       });
 
       res.status(201).send({
@@ -66,6 +73,7 @@ class LessonVideoController {
         .limitFields()
         .paginate()
         .getQuery()
+        .populate("lesson")
         .select("-__v");
 
       res.send({

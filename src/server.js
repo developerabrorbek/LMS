@@ -13,7 +13,7 @@ import { ErrorHandlerMiddleware } from "./middleware/error-handler.middleware.js
 const app = express();
 
 // MORGAN MIDDLEWARE
-if(process.env.NODE_ENV == "development") {
+if (process.env.NODE_ENV == "development") {
   app.use(morgan("tiny"));
 }
 
@@ -30,7 +30,10 @@ app.set("view engine", "ejs");
 app.set("views", path.join(process.cwd(), "src", "views"));
 
 // SERVE STATIC FILES IN PUBLIC DIRECTORY -> MIDDLEWARE
-app.use("/public", express.static(path.join(process.cwd(), "public"))); 
+app.use("/public", express.static(path.join(process.cwd(), "public")));
+
+// SERVE STATIC FILES IN UPLOADS DIRECTORY -> MIDDLEWARE
+app.use(express.static(path.join(process.cwd(), "uploads")));
 
 // BODY PARSING MIDDLEWARE
 app.use(bodyParser.json());
