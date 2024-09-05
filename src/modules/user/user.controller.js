@@ -4,6 +4,7 @@ import User from "./user.model.js";
 import ApiFeature from "../../utils/api-feature.utils.js";
 import { BadRequestException } from "../../exceptions/bad-request.exception.js";
 import bcryptConfig from "../../config/bcrypt.config.js";
+import { ConflictException } from "../../exceptions/conflic.exception.js";
 
 class UserController {
   #_userModel;
@@ -16,10 +17,9 @@ class UserController {
     try {
       const query = { ...req.query };
 
-      console.log(req.cookies, "oddiy cookies")
+      console.log(req.cookies, "oddiy cookies");
 
-      console.log(req.signedCookies, "secret cookies")
-
+      console.log(req.signedCookies, "secret cookies");
 
       // GET ALL FILTERED PRODUCTS COUNT
       const allResultsCount = await new ApiFeature(
@@ -59,7 +59,17 @@ class UserController {
 
   createUser = async (req, res, next) => {
     try {
-      const hashedPass = await bcrypt.hash(req.body.password, bcryptConfig.rounds);
+      if (req.role == "admin") {
+        if (req.body.role == "admin" || req.body.role == "super-admin") {
+          throw new ConflictException(
+            "You are not allowed to create admin or super-admin users"
+          );
+        }
+      }
+      const hashedPass = await bcrypt.hash(
+        req.body.password,
+        bcryptConfig.rounds
+      );
 
       await this.#_userModel.create({
         ...req.body,
