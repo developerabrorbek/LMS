@@ -1,0 +1,27 @@
+<main class="container-fluid p-0 row">
+  <!-- ASIDE PARTIAL -->
+  <%- include("../partials/_admin-aside") %>
+
+  <section class="main-body bg-body-tertiary col-9 p-0">
+    <header class="main-body__header bg-info p-2 px-4">
+      <h1><%= title %> </h1>
+    </header>
+    <div class="main-body__content">
+      <% if (tab === "dashboard") {%> 
+        <%- include("../partials/_admin-dashboard-content.ejs") %>
+      <% } %>
+
+      <% if (tab == "teachers") {%>
+      <%- include("../partials/_admin-teacher-content.ejs") %> 
+      <% } %>
+
+      <% if (tab == "students") {%>
+      <%- include("../partials/_admin-student-content.ejs") %>
+      <% } %>
+
+      <% if (tab == "groups") { %> 
+      <%- include("../partials/_admin-group-content.ejs") %>
+      <% } %>
+    </div>
+  </section>
+</main>

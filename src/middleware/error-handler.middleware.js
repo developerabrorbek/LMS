@@ -23,6 +23,8 @@ export const ErrorHandlerMiddleware = (err, _, res, __) => {
   // Catch dublicate field errors
   err = sendDublicateFieldException(err);
 
+  console.log(err)
+
   if (err.isException) {
     // write error to error-logs
     logger.error(

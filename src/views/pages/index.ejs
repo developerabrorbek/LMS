@@ -26,6 +26,7 @@
                 <span>Password:</span>
                 <input type="password" name="password" id="password" />
               </label>
+              <input type="text" name="userAgent" hidden />
               <button type="submit" class="login-form-btn">Sign in</button>
             </form>
             <a href="/forgot-password">Forgot password?</a>
@@ -33,5 +34,13 @@
         </div>
       </section>
     </main>
+    <script>
+      const getUserAgent = () => {
+        document.querySelector("input[name='userAgent']").value =
+          window.navigator.userAgent;
+        return window.navigator.userAgent;
+      };
+      getUserAgent();
+    </script>
   </body>
 </html>

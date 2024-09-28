@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../user/user.model.js";
 import { NotFoundException } from "../../exceptions/not-found.exception.js";
-import { signToken } from "../../helper/jwt.helper.js";
+import { signToken, verifyToken } from "../../helper/jwt.helper.js";
 import { sendMail } from "../../utils/send-email.utils.js";
 import passwordResetConfig from "../../config/password-reset.config.js";
 import crypto from "crypto";
@@ -11,6 +11,9 @@ import appConfig from "../../config/app.config.js";
 import { ConflictException } from "../../exceptions/conflic.exception.js";
 import generateOTP from "../../utils/generate-otp.utils.js";
 import { Otp } from "./otp.model.js";
+import jwtConfig from "../../config/jwt.config.js";
+import { BadRequestException } from "../../exceptions/bad-request.exception.js";
+import { UAParser } from "ua-parser-js";
 
 class AuthController {
   #_userModel;
@@ -32,6 +35,11 @@ class AuthController {
         throw new NotFoundException("User not found");
       }
 
+      const userDevice = UAParser(
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.2739.67"
+      );
+      console.log(userDevice.device);
+
       const result = await bcrypt.compare(
         req.body.password,
         foundedUser.password
@@ -48,29 +56,78 @@ class AuthController {
         role: foundedUser.role,
       });
 
+      const refreshToken = signToken(
+        {
+          id: foundedUser.id,
+          role: foundedUser.role,
+        },
+        jwtConfig.refreshKey,
+        jwtConfig.refreshExpireTime
+      );
+
       res.cookie("token", accessToken, { maxAge: 1000 * 60 * 6, signed: true });
+
+      res.cookie("refreshToken", refreshToken, {
+        maxAge: 1000 * 60 * 60 * 24,
+        signed: true,
+      });
 
       // res.send({
       //   message: "success",
       //   token: accessToken,
+      //   refreshToken: refreshToken,
       // });
 
       switch (foundedUser.role) {
         case "student":
-          res.redirect("/student");
+          res.redirect("/student/dashboard");
           break;
         case "teacher":
-          res.redirect("/teacher");
+          res.redirect("/teacher/dashboard");
           break;
         case "admin":
-          res.redirect("/admin");
+          res.redirect("/admin/dashboard");
           break;
         case "super-admin":
-          res.redirect("/super-admin");
+          res.redirect("/super-admin/dashboard");
           break;
         default:
           res.render("404", { message: "User page not found" });
       }
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // generate new refresh and access token
+  refresh = async (req, res, next) => {
+    try {
+      const token = req.headers["authorization"];
+
+      console.log(token);
+
+      if (!token) {
+        throw new BadRequestException(`Please provide a refresh token`);
+      }
+
+      // Verify refresh token
+      verifyToken(token, jwtConfig.refreshKey);
+
+      const { id, role } = jwt.decode(token);
+
+      const newRefreshToken = signToken(
+        { id, role },
+        jwtConfig.refreshKey,
+        jwtConfig.refreshExpireTime
+      );
+
+      const newAccessToken = signToken({ id, role });
+
+      res.send({
+        message: "success",
+        token: newAccessToken,
+        refreshToken: newRefreshToken,
+      });
     } catch (error) {
       next(error);
     }

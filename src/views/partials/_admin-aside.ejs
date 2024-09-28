@@ -1,0 +1,28 @@
+<aside
+  class="aside col-3 bg-primary-subtle d-flex flex-column align-items-center justify-content-center align-content-center gap-5"
+>
+  <h1>LMS</h1>
+  <ul class="list-group w-75">
+    <a
+      href="/admin/dashboard"
+      class="list-group-item <%= isDashboard ? "active" : "" %> dashboard text-center text-decoration-none"
+      >Dashboard</a
+    >
+    <a
+      href="/admin/teachers"
+      class="list-group-item teachers text-center text-decoration-none"
+      >Teachers</a
+    >
+    <a
+      href="/admin/students"
+      class="list-group-item students text-center text-decoration-none"
+      >Students</a
+    >
+    <a
+      href="/admin/groups"
+      class="list-group-item groups text-center text-decoration-none"
+      >Groups</a
+    >
+  </ul>
+  <a href="/" class="btn btn-danger">Log out</a>
+</aside>

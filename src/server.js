@@ -9,6 +9,7 @@ import pageRouter from "./routes/page.routes.js";
 import appConfig from "./config/app.config.js";
 import mongoDB from "./mongo/mongo.js";
 import { ErrorHandlerMiddleware } from "./middleware/error-handler.middleware.js";
+import expressEjsLayouts from "express-ejs-layouts";
 
 const app = express();
 
@@ -23,11 +24,17 @@ app.use(cookieParser("secret-key"));
 // SET UP METHOD OVERRIDE MIDDLEWARE FOR POST REQUESTS WITH QUERY ?_method=
 app.use(methodOverride("_method"));
 
+// SET EJS FILES PATH
+app.set("views", path.join(process.cwd(), "src", "views"));
+
 // SET VIEW ENGINE TO EJS
 app.set("view engine", "ejs");
 
-// SET EJS FILES PATH
-app.set("views", path.join(process.cwd(), "src", "views"));
+// SET DEFAULT LAYOUT FILE
+// app.set("layout", "layouts/main");
+
+// SET EJS LAYOUTS
+app.use(expressEjsLayouts);
 
 // SERVE STATIC FILES IN PUBLIC DIRECTORY -> MIDDLEWARE
 app.use("/public", express.static(path.join(process.cwd(), "public")));

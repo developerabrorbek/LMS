@@ -11,6 +11,7 @@ const authRoutes = Router();
 
 authRoutes
   .post("/login", ValidationMiddleware(loginSchema), authController.signin)
+  .post("/refresh", authController.refresh)
   .post(
     "/forgot-password",
     ValidationMiddleware(forgotPasswordDto),
